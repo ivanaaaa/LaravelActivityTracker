@@ -44,7 +44,7 @@ export default {
     props: {
         organizations: Array,
     },
-    remember: 'form',
+    // remember: 'form',
     data() {
         return {
             form: this.$inertia.form({

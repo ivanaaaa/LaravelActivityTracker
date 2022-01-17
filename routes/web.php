@@ -36,5 +36,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/activity/create', function () {
         return Inertia::render('Activity/Create');
     })->name('activity.create');
-    Route::post('/activity', [ActivityController::class, 'store'])->name('activity.store');
+    Route::post('/activity', [App\Http\Controllers\ActivityController::class, 'store'])->name('activity.store');
 });
