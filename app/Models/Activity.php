@@ -16,7 +16,8 @@ class Activity extends Model
     ];
 
     protected $casts = [
-        'activity_date' => 'datetime',
+        'activity_date' => 'date:m-d-Y',
+        'created_at' => 'date:m-d-Y'
     ];
 
     public function user()

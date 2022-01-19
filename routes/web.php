@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,9 +28,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-    Route::get('/reports', function () {
-        return Inertia::render('Reports/Reports');
-    })->name('reports');
+
+
+    //acivity routes
     Route::get('/activity', function () {
         return Inertia::render('Activity/Activity');
     })->name('activity');
@@ -37,4 +38,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
         return Inertia::render('Activity/Create');
     })->name('activity.create');
     Route::post('/activity', [App\Http\Controllers\ActivityController::class, 'store'])->name('activity.store');
+
+    //Reports
+    Route::get('/reports', function () {
+        return Inertia::render('Reports/Reports',['reports' => Auth::user()->activities()->get(['id','activity_date','duration','description'])]);
+    })->name('reports');
+    Route::post('/reports', [App\Http\Controllers\ReportsController::class, 'filter'])->name('reports.filter');
 });
