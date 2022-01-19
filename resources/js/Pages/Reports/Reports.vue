@@ -81,9 +81,6 @@ export default {
                 date_from: null,
                 date_to: null,
                 email_to: null,
-                errors: ({
-                  email_to: null,
-                })
             }),
             mailHidden: true,
         }

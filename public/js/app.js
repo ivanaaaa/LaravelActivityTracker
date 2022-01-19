@@ -21305,10 +21305,7 @@ __webpack_require__.r(__webpack_exports__);
       form: this.$inertia.form({
         date_from: null,
         date_to: null,
-        email_to: null,
-        errors: {
-          email_to: null
-        }
+        email_to: null
       }),
       mailHidden: true
     };
