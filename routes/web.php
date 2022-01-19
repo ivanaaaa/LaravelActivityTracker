@@ -45,4 +45,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     })->name('reports');
     Route::post('/reports', [App\Http\Controllers\ReportsController::class, 'filter'])->name('reports.filter');
     Route::post('/reports/email', [App\Http\Controllers\ReportsController::class, 'sendEmailNotification'])->name('reports.email');
+
 });
+//Unauthorized routes
+Route::get('/report/{token}', [App\Http\Controllers\ReportsController::class, 'emailReport'])->name('report.notification');

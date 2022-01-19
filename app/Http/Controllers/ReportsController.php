@@ -43,4 +43,24 @@ class ReportsController extends Controller
         Notification::route('mail', $notification['email_to'] )
             ->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
     }
+    public function emailReport(Request $request){
+        $notification = \App\Models\ReportNotification::where('token',$request->token)->first();
+        if ($notification === null)
+        {
+           return Inertia::render('Reports/MailReport',['reports'=>new Activity()]);
+        }
+        else
+        {
+            $filtered_reports = Activity::where('user_id', $notification->user_id);
+            if ($notification->date_from) {
+                $date_from = Carbon::parse($notification->date_from)->toDateString();
+                $filtered_reports->whereDate('created_at', '>=', $date_from);
+            }
+            if ($notification->date_to) {
+                $date_to = Carbon::parse($notification->date_to)->toDateString();
+                $filtered_reports->where('created_at', '=<', $date_to);
+            }
+            return Inertia::render('Reports/MailReport', ['reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
+        }
+    }
 }

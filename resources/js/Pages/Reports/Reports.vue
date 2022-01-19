@@ -30,7 +30,7 @@
                                 <th class="px-6 pt-6 pb-4">Description</th>
                             </tr>
                             <tr v-for="report in reports" :key="report.id" class=" hover:bg-gray-100 focus-within:bg-gray-100">
-                                <td class="border-t px-6">
+                                <td class="border-t px-6 pt-2 pb-2">
                                     <div>
                                         {{ report.id }}
                                     </div>
