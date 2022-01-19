@@ -40,8 +40,16 @@ class ReportsController extends Controller
                 'token' => $token,
             ]
         );
-        Notification::route('mail', $notification['email_to'] )
-            ->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
+        if($request->email_to)
+        {
+            Notification::route('mail', $notification['email_to'] )
+                ->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
+        }
+        else
+        {
+            Auth::user()->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
+        }
+
     }
     public function emailReport(Request $request){
         $notification = \App\Models\ReportNotification::where('token',$request->token)->first();
