@@ -1,24 +1,24 @@
 <template>
     <app-layout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Reports
-            </h2>
-        </template>
+        <h1 class=" mt-8 font-bold text-3xl pl-16">
+            <inertia-link class="text-indigo-400 hover:text-indigo-600" :href="route('reports')">Reports</inertia-link>
+            <span class="text-indigo-400 font-medium">/</span> List
+        </h1>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <form @submit.prevent="filter">
+                    <form>
                         <div class="pl-8 pr-8 pt-8 -mr-6 flex flex-wrap">
                             <label class="w-full lg:w-1/4 mr-3">Date From:</label>
                             <label class="w-full lg:w-1/4">Date To:</label>
                         </div>
                         <div class="pl-8 pr-8 pb-8 -mr-6 -mb-8 flex flex-wrap">
-
                             <input type="date" v-model="form.date_from" :error="form.errors.date_from" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4" >
                             <input type="date" v-model="form.date_to" :error="form.errors.date_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4">
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit">Search</loading-button>
-
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="filter">Search</loading-button>
+                            <input v-model="form.email_to" :error="form.errors.email_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 ml-3 w-full lg:w-1/6" placeholder="Send to email">
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="emailReport">Email Report</loading-button>
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 ml-3  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="printReport">Print Report</loading-button>
                         </div>
                     </form>
                     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -80,12 +80,20 @@ export default {
             form: this.$inertia.form({
                 date_from: null,
                 date_to: null,
+                email_to: null,
             }),
+
         }
     },
     methods: {
-        filter() {
+        async filter() {
             this.form.post(this.route('reports.filter'))
+        },
+        async emailReport() {
+            this.$alert('email');
+        },
+        async printReport() {
+            this.$alert('print');
         },
     },
 }
