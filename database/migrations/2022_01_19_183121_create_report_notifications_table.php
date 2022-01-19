@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportNotificationTable extends Migration
+class CreateReportNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateReportNotificationTable extends Migration
      */
     public function up()
     {
-        Schema::create('report_notification', function (Blueprint $table) {
+        Schema::create('report_notifications', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->index();
             $table->timestamp('date_from')->nullable();
             $table->timestamp('date_to')->nullable();
-            $table->string('token');
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateReportNotificationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('report_notification');
+        Schema::dropIfExists('report_notifications');
     }
 }

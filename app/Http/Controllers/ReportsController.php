@@ -31,7 +31,16 @@ class ReportsController extends Controller
     }
 
     public function sendEmailNotification(Request $request){
-        Notification::route('mail', $request->email_to )
-            ->notify((new ReportNotification($request->date_from,$request->date_to,Str::random(30),Auth::user()->id)));
+        $notification = $request->all();
+        $token = Str::random(30);
+        Auth::user()->reportNotification()->create(
+            [
+                'date_from' => $notification['date_from'],
+                'date_to' => $notification['date_to'],
+                'token' => $token,
+            ]
+        );
+        Notification::route('mail', $notification['email_to'] )
+            ->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
     }
 }
