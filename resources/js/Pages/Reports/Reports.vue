@@ -15,10 +15,10 @@
                         <div class="pl-8 pr-8 pb-8 -mr-6 -mb-8 flex flex-wrap">
                             <input type="date" v-model="form.date_from" :error="form.errors.date_from" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4" >
                             <input type="date" v-model="form.date_to" :error="form.errors.date_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4">
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="filter">Search</loading-button>
-                            <input v-model="form.email_to" :error="form.errors.email_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 ml-3 w-full lg:w-1/6" placeholder="Send to email">
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="emailReport">Email Report</loading-button>
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 ml-3  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click="printReport">Print Report</loading-button>
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 mr-3 lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="filter">Search</loading-button>
+                            <input v-if="!mailHidden" type="email" v-model="form.email_to" :error="form.errors.email_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 ml-3 w-full lg:w-1/6" placeholder="Send to email*">
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="emailReport">Email Report</loading-button>
+                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 ml-3  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="printReport">Print Report</loading-button>
                         </div>
                     </form>
                     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -81,18 +81,29 @@ export default {
                 date_from: null,
                 date_to: null,
                 email_to: null,
+                errors: ({
+                  email_to: null,
+                })
             }),
-
+            mailHidden: true,
         }
     },
     methods: {
-        async filter() {
+        filter() {
             this.form.post(this.route('reports.filter'))
         },
-        async emailReport() {
-            this.$alert('email');
+        emailReport() {
+            if(this.mailHidden)
+            {
+                this.mailHidden = false;
+            }
+            else
+            {
+                this.form.post(this.route('reports.email'))
+            }
+
         },
-        async printReport() {
+        printReport() {
             this.$alert('print');
         },
     },
