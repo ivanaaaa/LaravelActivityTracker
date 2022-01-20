@@ -25,15 +25,10 @@ Route::get('/', function () {
     ]);
 });
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-
-
     //acivity routes
-    Route::get('/activity', function () {
-        return Inertia::render('Activity/Activity');
-    })->name('activity');
+//    Route::get('/activity', function () {
+//        return Inertia::render('Activity/Activity');
+//    })->name('activity');
     Route::get('/activity/create', function () {
         return Inertia::render('Activity/Create');
     })->name('activity.create');
