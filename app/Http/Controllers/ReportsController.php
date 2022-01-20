@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReportsController extends Controller
 {
+
+    //filter by date
     public function filter(Request $request)
     {
         $filtered_reports = Activity::where('user_id', Auth::user()->id);
@@ -24,12 +27,14 @@ class ReportsController extends Controller
         }
         if ($request->date_to) {
             $date_to = Carbon::parse($request->date_to)->toDateString();
-            $filtered_reports->where('created_at', '=<', $date_to);
+            $filtered_reports->whereDate('created_at', '<=', $date_to);
         }
         return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
 //        return Redirect::route('reports',['reports' => $filtered_reports]);
     }
 
+
+    //send email notification from report
     public function sendEmailNotification(Request $request){
         $notification = $request->all();
         $token = Str::random(30);
@@ -49,8 +54,16 @@ class ReportsController extends Controller
         {
             Auth::user()->notify((new ReportNotification($notification['date_from'],$notification['date_to'],$token,Auth::user()->id)));
         }
-
+        $emailAndFilter = new \Illuminate\Http\Request();
+        $emailAndFilter->setMethod('POST');
+        $emailAndFilter->request->add([
+            'date_from' => $notification['date_from'],
+            'date_to' => $notification['date_to']
+        ]);
+        return $this->filter($emailAndFilter);
     }
+
+    //find report from email by token
     public function emailReport(Request $request){
         $notification = \App\Models\ReportNotification::where('token',$request->token)->first();
         if ($notification === null)
@@ -66,9 +79,27 @@ class ReportsController extends Controller
             }
             if ($notification->date_to) {
                 $date_to = Carbon::parse($notification->date_to)->toDateString();
-                $filtered_reports->where('created_at', '=<', $date_to);
+                $filtered_reports->whereDate('created_at', '<=', $date_to);
             }
             return Inertia::render('Reports/MailReport', ['reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
         }
+    }
+
+    //print filtered report
+    public function printReport(Request $request)
+    {
+        $filtered_reports = Activity::where('user_id', Auth::user()->id);
+        if ($request->from != "null") {
+            $date_from = Carbon::parse($request->from)->toDateString();
+            $filtered_reports->whereDate('created_at', '>=', $date_from);
+        }
+        if ($request->to != "null") {
+            $date_to = Carbon::parse($request->to)->toDateString();
+            $filtered_reports->whereDate('created_at', '<=', $date_to);
+        }
+        $pdf=PDF::loadView('report',[
+            'reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
+        // download pdf file
+        return $pdf->download('report.pdf');
     }
 }

@@ -101,7 +101,7 @@ export default {
 
         },
         printReport() {
-            this.$alert('print');
+            window.open(`/reports/print?from=${this.form.date_from}&to=${this.form.date_to}`, '_blank').focus();
         },
     },
 }

@@ -21344,7 +21344,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     printReport: function printReport() {
-      this.$alert('print');
+      window.open("/reports/print?from=".concat(this.form.date_from, "&to=").concat(this.form.date_to), '_blank').focus();
     }
   }
 });
