@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     //Reports
     Route::get('/reports', function () {
-        return Inertia::render('Reports/Reports',['reports' => Auth::user()->activities()->get(['id','activity_date','duration','description'])]);
+        return Inertia::render('Reports/Reports',['reports' => Auth::user()->activities()->paginate(15)]);
     })->name('reports');
     Route::post('/reports', [App\Http\Controllers\ReportsController::class, 'filter'])->name('reports.filter');
     Route::post('/reports/email', [App\Http\Controllers\ReportsController::class, 'sendEmailNotification'])->name('reports.email');

@@ -29,7 +29,7 @@
                                 <th class="px-6 pt-6 pb-4">Duration</th>
                                 <th class="px-6 pt-6 pb-4">Description</th>
                             </tr>
-                            <tr v-for="report in reports" :key="report.id" class=" hover:bg-gray-100 focus-within:bg-gray-100">
+                           <tr v-for="report in reports.data" :key="report.id" class=" hover:bg-gray-100 focus-within:bg-gray-100">
                                 <td class="border-t px-6 pt-2 pb-2">
                                     <div>
                                         {{ report.id }}
@@ -55,8 +55,10 @@
                                 <td class="border-t px-6 py-4 center" colspan="4">No reports found.</td>
                             </tr>
                         </table>
+                        <pagination class="mt-6" :links="reports.links" />
                     </div>
                 </div>
+
             </div>
         </div>
     </app-layout>
@@ -65,12 +67,14 @@
 <script>
 import AppLayout from '@/Layouts/AppLayout'
 import LoadingButton from '@/Jetstream/LoadingButton'
+import Pagination from '@/Jetstream/Pagination'
 
 export default {
     metaInfo: { title: 'Reports' },
     components: {
         AppLayout,
         LoadingButton,
+        Pagination
     },
     props: {
         reports: Object

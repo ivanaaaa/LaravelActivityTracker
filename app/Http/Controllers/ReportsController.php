@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
-use App\Models\User;
 use App\Notifications\ReportNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Barryvdh\DomPDF\Facade as PDF;
@@ -29,7 +27,7 @@ class ReportsController extends Controller
             $date_to = Carbon::parse($request->date_to)->toDateString();
             $filtered_reports->whereDate('created_at', '<=', $date_to);
         }
-        return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
+        return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->paginate(15)]);
 //        return Redirect::route('reports',['reports' => $filtered_reports]);
     }
 
@@ -81,7 +79,7 @@ class ReportsController extends Controller
                 $date_to = Carbon::parse($notification->date_to)->toDateString();
                 $filtered_reports->whereDate('created_at', '<=', $date_to);
             }
-            return Inertia::render('Reports/MailReport', ['reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
+            return Inertia::render('Reports/MailReport', ['reports' => $filtered_reports->paginate(15)]);
         }
     }
 
