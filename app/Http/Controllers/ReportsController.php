@@ -21,11 +21,11 @@ class ReportsController extends Controller
         $filtered_reports = Activity::where('user_id', Auth::user()->id);
         if ($request->date_from) {
             $date_from = Carbon::parse($request->date_from)->toDateString();
-            $filtered_reports->whereDate('created_at', '>=', $date_from);
+            $filtered_reports->whereDate('activity_date', '>=', $date_from);
         }
         if ($request->date_to) {
             $date_to = Carbon::parse($request->date_to)->toDateString();
-            $filtered_reports->whereDate('created_at', '<=', $date_to);
+            $filtered_reports->whereDate('activity_date', '<=', $date_to);
         }
         return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->paginate(15)]);
 //        return Redirect::route('reports',['reports' => $filtered_reports]);
@@ -73,11 +73,11 @@ class ReportsController extends Controller
             $filtered_reports = Activity::where('user_id', $notification->user_id);
             if ($notification->date_from) {
                 $date_from = Carbon::parse($notification->date_from)->toDateString();
-                $filtered_reports->whereDate('created_at', '>=', $date_from);
+                $filtered_reports->whereDate('activity_date', '>=', $date_from);
             }
             if ($notification->date_to) {
                 $date_to = Carbon::parse($notification->date_to)->toDateString();
-                $filtered_reports->whereDate('created_at', '<=', $date_to);
+                $filtered_reports->whereDate('activity_date', '<=', $date_to);
             }
             return Inertia::render('Reports/MailReport', ['reports' => $filtered_reports->paginate(15)]);
         }
@@ -89,11 +89,11 @@ class ReportsController extends Controller
         $filtered_reports = Activity::where('user_id', Auth::user()->id);
         if ($request->from != "null") {
             $date_from = Carbon::parse($request->from)->toDateString();
-            $filtered_reports->whereDate('created_at', '>=', $date_from);
+            $filtered_reports->whereDate('activity_date', '>=', $date_from);
         }
         if ($request->to != "null") {
             $date_to = Carbon::parse($request->to)->toDateString();
-            $filtered_reports->whereDate('created_at', '<=', $date_to);
+            $filtered_reports->whereDate('activity_date', '<=', $date_to);
         }
         $pdf=PDF::loadView('report',[
             'reports' => $filtered_reports->get(['id','activity_date','duration','description'])]);
