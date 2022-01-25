@@ -13,12 +13,25 @@
                             <label class="w-full lg:w-1/4">Date To:</label>
                         </div>
                         <div class="pl-8 pr-8 pb-8 -mr-6 -mb-8 flex flex-wrap">
-                            <input type="date" v-model="form.date_from" :error="form.errors.date_from" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4" >
-                            <input type="date" v-model="form.date_to" :error="form.errors.date_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4">
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 mr-3 lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="filter">Search</loading-button>
-                            <input v-if="!mailHidden" type="email" v-model="form.email_to" :error="form.errors.email_to" class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 ml-3 w-full lg:w-1/6" placeholder="Send to email*">
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="emailReport">Email Report</loading-button>
-                            <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 mb-3 p-2 ml-3  lg:w-1/8 bg-indigo-400 text-white" type="submit" @click.prevent="printReport">Print Report</loading-button>
+                            <input type="date" v-model="form.date_from" :error="form.errors.date_from"
+                                   class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4">
+                            <input type="date" v-model="form.date_to" :error="form.errors.date_to"
+                                   class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 w-full lg:w-1/4">
+                            <loading-button :loading="form.processing"
+                                            class="btn-indigo border-indigo-400 border-2 mb-3 p-2 mr-3 lg:w-1/8 bg-indigo-400 text-white"
+                                            type="submit" @click.prevent="filter">Search
+                            </loading-button>
+                            <input v-if="!mailHidden" type="email" v-model="form.email_to" :error="form.errors.email_to"
+                                   class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 mr-3 ml-3 w-full lg:w-1/6"
+                                   placeholder="Send to email*">
+                            <loading-button :loading="form.processing"
+                                            class="btn-indigo border-indigo-400 border-2 mb-3 p-2  lg:w-1/8 bg-indigo-400 text-white"
+                                            type="submit" @click.prevent="emailReport">Email Report
+                            </loading-button>
+                            <loading-button :loading="form.processing"
+                                            class="btn-indigo border-indigo-400 border-2 mb-3 p-2 ml-3  lg:w-1/8 bg-indigo-400 text-white"
+                                            type="submit" @click.prevent="printReport">Print Report
+                            </loading-button>
                         </div>
                     </form>
                     <div class="bg-white rounded-md shadow overflow-x-auto">
@@ -29,7 +42,8 @@
                                 <th class="px-6 pt-6 pb-4">Duration</th>
                                 <th class="px-6 pt-6 pb-4">Description</th>
                             </tr>
-                           <tr v-for="report in reports.data" :key="report.id" class=" hover:bg-gray-100 focus-within:bg-gray-100">
+                            <tr v-for="report in reports.data" :key="report.id"
+                                class=" hover:bg-gray-100 focus-within:bg-gray-100">
                                 <td class="border-t px-6 pt-2 pb-2">
                                     <div>
                                         {{ report.id }}
@@ -55,7 +69,7 @@
                                 <td class="border-t px-6 py-4 center" colspan="4">No reports found.</td>
                             </tr>
                         </table>
-                        <pagination class="mt-6" :links="reports.links" />
+                        <pagination class="mt-6" :links="reports.links"/>
                     </div>
                 </div>
 
@@ -70,7 +84,7 @@ import LoadingButton from '@/Jetstream/LoadingButton'
 import Pagination from '@/Jetstream/Pagination'
 
 export default {
-    metaInfo: { title: 'Reports' },
+    metaInfo: {title: 'Reports'},
     components: {
         AppLayout,
         LoadingButton,
@@ -94,12 +108,9 @@ export default {
             this.form.post(this.route('reports.filter'))
         },
         emailReport() {
-            if(this.mailHidden)
-            {
+            if (this.mailHidden) {
                 this.mailHidden = false;
-            }
-            else
-            {
+            } else {
                 this.form.post(this.route('reports.email'))
             }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Notifications\ReportNotification;
+use App\Models\ReportNotification as ReportNotificationModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -27,9 +28,7 @@ class ReportsController extends Controller
             $date_to = Carbon::parse($request->date_to)->toDateString();
             $filtered_reports->whereDate('activity_date', '<=', $date_to);
         }
-        return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->paginate(15)]);
-//        return Redirect::route('reports',['reports' => $filtered_reports]);
-    }
+        return Inertia::render('Reports/Reports', ['reports' => $filtered_reports->paginate(15)]);    }
 
 
     //send email notification from report
@@ -63,7 +62,7 @@ class ReportsController extends Controller
 
     //find report from email by token
     public function emailReport(Request $request){
-        $notification = \App\Models\ReportNotification::where('token',$request->token)->first();
+        $notification = ReportNotificationModel::where('token',$request->token)->first();
         if ($notification === null)
         {
            return Inertia::render('Reports/MailReport',['reports'=>new Activity()]);

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\ReportsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -25,23 +27,18 @@ Route::get('/', function () {
     ]);
 });
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
-    //acivity routes
-//    Route::get('/activity', function () {
-//        return Inertia::render('Activity/Activity');
-//    })->name('activity');
     Route::get('/activity/create', function () {
         return Inertia::render('Activity/Create');
     })->name('activity.create');
-    Route::post('/activity', [App\Http\Controllers\ActivityController::class, 'store'])->name('activity.store');
-
+    Route::post('/activity', [ActivityController::class, 'store'])->name('activity.store');
     //Reports
     Route::get('/reports', function () {
-        return Inertia::render('Reports/Reports',['reports' => Auth::user()->activities()->paginate(15)]);
+        return Inertia::render('Reports/Reports', ['reports' => Auth::user()->activities()->paginate(15)]);
     })->name('reports');
-    Route::post('/reports', [App\Http\Controllers\ReportsController::class, 'filter'])->name('reports.filter');
-    Route::post('/reports/email', [App\Http\Controllers\ReportsController::class, 'sendEmailNotification'])->name('reports.email');
-    Route::get('/reports/print', [App\Http\Controllers\ReportsController::class, 'printReport'])->name('reports.print');
+    Route::post('/reports', [ReportsController::class, 'filter'])->name('reports.filter');
+    Route::post('/reports/email', [ReportsController::class, 'sendEmailNotification'])->name('reports.email');
+    Route::get('/reports/print', [ReportsController::class, 'printReport'])->name('reports.print');
 
 });
 //Unauthorized routes
-Route::get('/report/{token}', [App\Http\Controllers\ReportsController::class, 'emailReport'])->name('report.notification');
+Route::get('/report/{token}', [ReportsController::class, 'emailReport'])->name('report.notification');
