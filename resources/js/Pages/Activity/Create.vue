@@ -10,15 +10,18 @@
                 <form @submit.prevent="store">
                     <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                         <label class="w-full">Activity Date:*</label>
-                        <input type="date" v-model="form.activity_date" :error="form.errors.activity_date"
-                               class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full" required>
+                        <input type="date" v-model="form.activity_date"
+                               class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"/>
+                        <div v-if="errors.activity_date" class="text-red-600 font-bold">{{ errors.activity_date }}</div>
                         <label class="w-full ">Activity duration (in hours):*</label>
                         <input v-model="form.duration" type="number" min="0"
                                onkeyup="if(this.value<0){this.value= this.value * -1}" :error="form.errors.duration"
-                               class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full" required/>
+                               class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"/>
+                        <div v-if="errors.duration" class="text-red-600 font-bold">{{ errors.duration }}</div>
                         <label class="w-full ">Description:*</label>
-                        <textarea v-model="form.description" :error="form.errors.description"
-                                  class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full" required/>
+                        <textarea v-model="form.description"
+                                  class="border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"/>
+                        <div v-if="errors.description" class="text-red-600 font-bold">{{ errors.description }}</div>
                     </div>
                     <div class="px-3 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center">
                         <loading-button :loading="form.processing" class="btn-indigo border-indigo-400 border-2 p-2"
@@ -37,7 +40,6 @@ import LoadingButton from '@/Jetstream/LoadingButton'
 import Input from '@/Jetstream/Input'
 import Label from '@/Jetstream/Label'
 
-
 export default {
     metaInfo: {title: 'Create Activity'},
     components: {
@@ -47,7 +49,7 @@ export default {
         Label,
     },
     props: {
-        organizations: Array,
+        errors: Object,
     },
     // remember: 'form',
     data() {

@@ -20281,7 +20281,7 @@ __webpack_require__.r(__webpack_exports__);
     Label: _Jetstream_Label__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: {
-    organizations: Array
+    errors: Object
   },
   // remember: 'form',
   data: function data() {
@@ -23823,7 +23823,10 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = ["error"];
+var _hoisted_9 = {
+  key: 0,
+  "class": "text-red-600 font-bold"
+};
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "w-full"
@@ -23832,19 +23835,26 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_11 = ["error"];
+var _hoisted_12 = {
+  key: 1,
+  "class": "text-red-600 font-bold"
+};
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "class": "w-full"
 }, "Description:*", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = ["error"];
 var _hoisted_14 = {
+  key: 2,
+  "class": "text-red-600 font-bold"
+};
+var _hoisted_15 = {
   "class": "px-3 py-4 bg-gray-50 border-t border-gray-100 flex justify-end items-center"
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Create Activity ");
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Create Activity ");
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_inertia_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("inertia-link");
@@ -23876,12 +23886,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $data.form.activity_date = $event;
         }),
-        error: $data.form.errors.activity_date,
-        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full",
-        required: ""
-      }, null, 8
-      /* PROPS */
-      , _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.activity_date]]), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.activity_date]]), $props.errors.activity_date ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.errors.activity_date), 1
+      /* TEXT */
+      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $data.form.duration = $event;
         }),
@@ -23889,26 +23899,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         min: "0",
         onkeyup: "if(this.value<0){this.value= this.value * -1}",
         error: $data.form.errors.duration,
-        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full",
-        required: ""
+        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"
       }, null, 8
       /* PROPS */
-      , _hoisted_11), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.duration]]), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+      , _hoisted_11), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.duration]]), $props.errors.duration ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.errors.duration), 1
+      /* TEXT */
+      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
         "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
           return $data.form.description = $event;
         }),
-        error: $data.form.errors.description,
-        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full",
-        required: ""
-      }, null, 8
-      /* PROPS */
-      , _hoisted_13), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_loading_button, {
+        "class": "border-2 border-indigo-400 pr-6 pl-3 pb-1 pt-2 mb-3 w-full"
+      }, null, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]]), $props.errors.description ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.errors.description), 1
+      /* TEXT */
+      )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_loading_button, {
         loading: $data.form.processing,
         "class": "btn-indigo border-indigo-400 border-2 p-2",
         type: "submit"
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_15];
+          return [_hoisted_16];
         }),
         _: 1
         /* STABLE */
