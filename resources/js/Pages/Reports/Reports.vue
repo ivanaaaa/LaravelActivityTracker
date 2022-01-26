@@ -72,7 +72,6 @@
                         <pagination class="mt-6" :links="reports.links"/>
                     </div>
                 </div>
-
             </div>
         </div>
     </app-layout>
